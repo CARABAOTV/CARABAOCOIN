@@ -3,16 +3,35 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>$CARABAO — ULTRA PRO</title>
 
-<script src="https://unpkg.com/@solana/web3.js@latest/lib/index.iife.js"></script>
+<title>$CARABAO — Slow Pull. Heavy Conviction.</title>
 
 <style>
-:root{--yellow:#f5c400}
+:root{
+--yellow:#f5c400;
+--bg:#0a0a0a;
+}
 
-*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui}
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui}
 
-body{background:#000;color:#fff;overflow-x:hidden}
+html{scroll-behavior:smooth}
+
+body{
+color:#fff;
+background:#000;
+overflow-x:hidden;
+}
+
+/* PARALLAX BACKGROUND */
+.bg{
+position:fixed;
+inset:0;
+background:
+linear-gradient(rgba(255,180,60,.25),rgba(0,0,0,.8)),
+url("carabaopulling.jpg") center/cover no-repeat;
+transform:scale(1.1);
+z-index:-1;
+}
 
 /* HERO */
 .hero{
@@ -20,67 +39,123 @@ min-height:100svh;
 display:flex;
 align-items:center;
 padding:40px;
-background:radial-gradient(circle at 50% 30%,rgba(245,196,0,.15),transparent 60%);
+}
+
+.hero-inner{
+max-width:1100px;
+animation:heroFloat 6s ease-in-out infinite;
+}
+
+@keyframes heroFloat{
+0%,100%{transform:translateY(0)}
+50%{transform:translateY(-10px)}
 }
 
 .hero h1{
-font-size:clamp(60px,9vw,110px);
+font-size:clamp(48px,8vw,88px);
 font-weight:900;
-text-shadow:0 0 60px rgba(245,196,0,.6);
+text-shadow:0 0 25px rgba(245,196,0,.6);
 }
 
+.hero p{
+margin-top:14px;
+font-size:18px;
+max-width:520px;
+opacity:.9;
+}
+
+/* BUTTON */
 .btn{
 display:inline-block;
-margin-top:24px;
-padding:18px 30px;
-border-radius:999px;
+margin-top:26px;
 background:linear-gradient(90deg,#f5c400,#ffd84d);
 color:#000;
+padding:16px 28px;
+border-radius:999px;
 font-weight:900;
 text-decoration:none;
+box-shadow:0 10px 40px rgba(245,196,0,.4);
 }
 
-/* CARD */
-.section{max-width:1100px;margin:auto;padding:32px}
+/* CARDS */
+.section{max-width:1000px;margin:auto;padding:32px}
 
 .card{
 background:rgba(0,0,0,.65);
-border:1px solid rgba(255,255,255,.06);
+backdrop-filter:blur(8px);
 padding:24px;
 border-radius:20px;
-margin-bottom:24px;
-backdrop-filter:blur(10px);
+margin-bottom:28px;
+border:1px solid rgba(255,255,255,.05);
 }
 
-.big{font-size:42px;font-weight:900;color:var(--yellow)}
+/* HOLDER COUNTER */
+.counter{
+font-size:42px;
+font-weight:900;
+color:var(--yellow);
+}
 
-.wallet{
+/* WHALE BANNER */
+.whale{
 position:fixed;
-top:16px;
+top:0;
+width:100%;
+background:#000;
+border-bottom:1px solid #222;
+padding:10px;
+overflow:hidden;
+white-space:nowrap;
+}
+
+.whale span{
+display:inline-block;
+padding-left:100%;
+animation:whale 18s linear infinite;
+color:#ffd84d;
+font-weight:700;
+}
+
+@keyframes whale{
+0%{transform:translateX(0)}
+100%{transform:translateX(-100%)}
+}
+
+/* MUSIC BUTTON */
+.music{
+position:fixed;
+top:50px;
 right:16px;
+background:#000;
 border:1px solid #333;
-padding:10px 16px;
+padding:10px 14px;
 border-radius:999px;
 cursor:pointer;
-background:#000;
 }
 
-.feed{font-family:monospace;display:grid;gap:6px;opacity:.9}
 </style>
 </head>
 
 <body>
 
-<div class="wallet" id="walletBtn">Connect Wallet</div>
+<div class="bg"></div>
 
+<div class="whale">
+<span>🐋 Whale bought 2.4M CARABAO • New holder joined • Diamond hands detected • Smart money accumulating</span>
+</div>
+
+<!-- 🎵 MUSIC -->
 <audio id="bgMusic" loop preload="auto">
 <source src="carabao-music.mp3" type="audio/mpeg">
 </audio>
 
+<div class="music" id="musicBtn">🔊</div>
+
+<!-- HERO -->
 <section class="hero">
-<div>
+<div class="hero-inner">
 <h1>$CARABAO</h1>
-<p>Slow pull. Heavy conviction.</p>
+<p>Slow pull. Heavy conviction.<br>Diamond hands don’t rush.</p>
 <a class="btn" href="https://pump.fun" target="_blank">Buy $CARABAO</a>
 </div>
 </section>
@@ -89,46 +164,37 @@ background:#000;
 
 <div class="card">
 <h2>Holders</h2>
-<div class="big" id="holders">Loading...</div>
+<div class="counter" id="holders">1270</div>
 </div>
 
 <div class="card">
-<h2>Price</h2>
-<div class="big" id="price">Loading...</div>
+<h2>Token Address</h2>
+<code>92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump</code>
 </div>
 
 <div class="card">
-<h2>Whale Alerts</h2>
-<div class="feed" id="feed"></div>
-</div>
-
-<div class="card">
-<h2>Anti-Scam Verification</h2>
-<div class="feed">
-<div>Official token:</div>
-<div>92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump</div>
-<div>No DMs • No private sale</div>
-</div>
-</div>
-
-<div class="card">
+<h2>Live Chart</h2>
 <iframe
 src="https://dexscreener.com/solana/92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump?embed=1&theme=dark"
-width="100%" height="420" frameborder="0"></iframe>
+width="100%"
+height="420"
+frameborder="0"></iframe>
 </div>
 
 </div>
 
 <script>
-const TOKEN="92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump";
+document.addEventListener("DOMContentLoaded",()=>{
 
-/* MUSIC FADE */
+/* MUSIC FADE IN */
 const music=document.getElementById("bgMusic");
+const btn=document.getElementById("musicBtn");
+
 music.volume=0;
 music.muted=true;
 music.play().catch(()=>{});
 
-window.addEventListener("click",()=>{
+const fadeIn=()=>{
 music.muted=false;
 let v=0;
 const i=setInterval(()=>{
@@ -136,58 +202,31 @@ v+=0.02;
 music.volume=Math.min(v,.35);
 if(v>=.35) clearInterval(i);
 },120);
-},{once:true});
-
-/* WALLET CONNECT REAL */
-document.getElementById("walletBtn").onclick=async()=>{
-if(window.solana?.isPhantom){
-const resp=await window.solana.connect();
-alert("Connected: "+resp.publicKey.toString());
-}else{
-alert("Install Phantom wallet");
-}
 };
 
-/* REAL PRICE — Dexscreener */
-async function loadPrice(){
-try{
-const r=await fetch(`https://api.dexscreener.com/latest/dex/tokens/${TOKEN}`);
-const j=await r.json();
-const p=j.pairs?.[0]?.priceUsd;
-document.getElementById("price").innerText=p?"$"+Number(p).toFixed(6):"—";
-}catch{
-document.getElementById("price").innerText="$0.000000";
-}
-}
-loadPrice();
-setInterval(loadPrice,15000);
+window.addEventListener("click",fadeIn,{once:true});
+window.addEventListener("touchstart",fadeIn,{once:true});
 
-/* HOLDER COUNT (Helius ready fallback demo) */
-let holders=1270;
-const hEl=document.getElementById("holders");
+btn.onclick=()=>{
+music.muted=!music.muted;
+};
 
-function fakeHolders(){
-holders+=Math.random()<.4?1:0;
-hEl.innerText=holders;
-}
-fakeHolders();
-setInterval(fakeHolders,8000);
-
-/* WHALE ALERT (poll ready) */
-const feed=document.getElementById("feed");
-const msgs=[
-"🐋 Whale accumulation detected",
-"🐋 Smart wallet buying",
-"🐋 Liquidity added",
-"🐋 Large holder stacking"
-];
+/* HOLDER COUNTER AUTO INCREMENT */
+const el=document.getElementById("holders");
+let value=parseInt(el.innerText);
 
 setInterval(()=>{
-const el=document.createElement("div");
-el.innerText=msgs[Math.floor(Math.random()*msgs.length)];
-feed.prepend(el);
-if(feed.children.length>6) feed.removeChild(feed.lastChild);
-},4500);
+value+=Math.random()<.5?1:0;
+el.innerText=value;
+},6000);
+
+/* PARALLAX */
+window.addEventListener("scroll",()=>{
+document.querySelector(".bg").style.transform=
+`scale(1.1) translateY(${window.scrollY*0.15}px)`;
+});
+
+});
 </script>
 
 </body>
