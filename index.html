@@ -6,290 +6,177 @@
 
 <title>$CARABAO — Slow Pull. Heavy Conviction.</title>
 
-<!-- OG TAGS -->
 <meta property="og:title" content="$CARABAO — Slow Pull. Heavy Conviction." />
 <meta property="og:description" content="No fake urgency. No daily noise. Built for the long walk." />
 <meta property="og:image" content="carabaopulling.jpg" />
-<meta property="og:type" content="website" />
 
 <style>
-:root {
-  --yellow: #f5c400;
-  --dark: #0a0a0a;
+:root{
+--yellow:#f5c400;
 }
 
-* {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+*{box-sizing:border-box;margin:0;padding:0;font-family:system-ui;}
+
+body{
+color:#fff;
+background:
+linear-gradient(rgba(255,200,120,.28),rgba(0,0,0,.65)),
+url("carabaopulling.jpg") center bottom/cover no-repeat fixed;
 }
 
-html, body {
-  height: 100%;
+.hero{min-height:100svh;display:flex;align-items:center}
+.hero-inner{max-width:1100px;padding:32px}
+
+.hero h1{font-size:clamp(40px,7vw,72px);font-weight:900}
+.hero p{margin-top:12px;font-size:18px;max-width:520px}
+
+.buttons{margin-top:24px;display:flex;gap:14px;flex-wrap:wrap}
+
+.btn{
+background:var(--yellow);
+color:#000;
+padding:14px 22px;
+border-radius:999px;
+font-weight:800;
+text-decoration:none;
 }
 
-body {
-  color: #fff;
-  background:
-    linear-gradient(
-      rgba(255, 200, 120, 0.28),
-      rgba(0, 0, 0, 0.65)
-    ),
-    url("carabaopulling.jpg") center bottom / cover no-repeat fixed;
+.section{max-width:1000px;margin:auto;padding:32px}
+
+.card{
+background:rgba(0,0,0,.65);
+border-radius:18px;
+padding:22px;
+backdrop-filter:blur(6px);
+margin-bottom:32px;
 }
 
-/* ---------- HERO ---------- */
-.hero {
-  min-height: 100svh;
-  display: flex;
-  align-items: center;
+.chart{width:100%;height:420px;border-radius:14px;overflow:hidden}
+
+.token{
+font-family:monospace;
+word-break:break-all;
+background:rgba(0,0,0,.5);
+padding:12px;
+border-radius:10px;
 }
 
-.hero-inner {
-  max-width: 1100px;
-  padding: 32px;
+.sticky{
+position:fixed;
+bottom:14px;
+left:50%;
+transform:translateX(-50%);
+z-index:999;
 }
 
-.hero h1 {
-  font-size: clamp(40px, 7vw, 72px);
-  font-weight: 900;
-}
-
-.hero p {
-  margin-top: 12px;
-  font-size: 18px;
-  max-width: 520px;
-  opacity: 0.95;
-}
-
-.buttons {
-  margin-top: 24px;
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-
-.btn {
-  background: var(--yellow);
-  color: #000;
-  padding: 14px 22px;
-  border-radius: 999px;
-  font-weight: 800;
-  text-decoration: none;
-}
-
-/* ---------- SECTION ---------- */
-.section {
-  max-width: 1000px;
-  margin: auto;
-  padding: 32px;
-}
-
-.card {
-  background: rgba(0,0,0,0.65);
-  border-radius: 18px;
-  padding: 22px;
-  backdrop-filter: blur(6px);
-  margin-bottom: 32px;
-}
-
-/* ---------- CHART ---------- */
-.chart {
-  width: 100%;
-  height: 420px;
-  border-radius: 14px;
-  overflow: hidden;
-}
-
-/* ---------- ROADMAP ---------- */
-.roadmap {
-  display: grid;
-  gap: 16px;
-}
-
-.phase {
-  border-left: 4px solid var(--yellow);
-  padding-left: 14px;
-}
-
-/* ---------- TOKEN ---------- */
-.token {
-  font-family: monospace;
-  word-break: break-all;
-  background: rgba(0,0,0,0.5);
-  padding: 12px;
-  border-radius: 10px;
-}
-
-/* ---------- STICKY ---------- */
-.sticky {
-  position: fixed;
-  bottom: 14px;
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 999;
-}
-
-/* ---------- ULTRA DEGEN ---------- */
-body.degen .section {
-  display: none;
-}
-
-body.degen .hero {
-  min-height: 100svh;
-}
-
-/* ---------- MOBILE ---------- */
-@media (max-width: 600px) {
-  body {
-    background-position: center bottom;
-  }
+.music-toggle{
+position:fixed;
+top:16px;
+right:16px;
+background:#000;
+border:1px solid #333;
+padding:10px 14px;
+border-radius:999px;
+cursor:pointer;
+font-weight:700;
 }
 </style>
 </head>
 
 <body>
-  <audio id="bgMusic" loop preload="auto">
-  <source src="carabao-music.mp3" type="audio/mpeg">
+
+<!-- 🎵 BACKGROUND MUSIC -->
+<audio id="bgMusic" loop preload="auto">
+<source src="carabao-music.mp3" type="audio/mpeg">
 </audio>
 
-<script>
-const music = document.getElementById("bgMusic");
-
-music.volume = 0.35;
-music.muted = true;
-
-music.play().catch(()=>{});
-
-function enableSound(){
-  music.muted = false;
-  music.play().catch(()=>{});
-  document.removeEventListener("click", enableSound);
-  document.removeEventListener("touchstart", enableSound);
-}
-
-document.addEventListener("click", enableSound);
-document.addEventListener("touchstart", enableSound);
-</script>
+<div class="music-toggle" id="musicBtn">🔊 Sound</div>
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <h1>$CARABAO</h1>
-    <p>
-      Slow pull. Heavy conviction.<br>
-      Diamond hands don’t rush.
-    </p>
+<div class="hero-inner">
+<h1>$CARABAO</h1>
+<p>Slow pull. Heavy conviction.<br>Diamond hands don’t rush.</p>
 
-    <div class="buttons">
-      <a class="btn" href="#chart">Live Chart</a>
-      <a class="btn" href="https://pump.fun" target="_blank">Swap $CARABAO</a>
-      <a class="btn" href="#" onclick="toggleDegen()">Ultra-Degen</a>
-    </div>
-  </div>
+<div class="buttons">
+<a class="btn" href="#chart">Live Chart</a>
+<a class="btn" href="https://pump.fun" target="_blank">Swap $CARABAO</a>
+</div>
+</div>
 </section>
 
-<!-- CONTENT -->
 <div class="section">
 
- <div class="card" id="whitepaper">
-  <h2>CARABAO Whitepaper</h2>
-
-  <p><strong>Slow Pull. Heavy Conviction.</strong></p>
-
-  <p>
-    CARABAO is a community-driven meme token inspired by the Filipino carabao —
-    a symbol of patience, strength, and quiet resilience.
-  </p>
-
-  <h3>Mission</h3>
-  <p>
-    CARABAO exists to promote financial education, cultural preservation,
-    and long-term conviction over short-term speculation.
-  </p>
-
-  <h3>Founder’s Manifesto</h3>
-  <p>
-    This project is not built for screenshots.<br>
-    It is built for the long walk.<br><br>
-    Like the carabao, we move slowly — but we arrive.
-  </p>
-
-  <h3>Roadmap</h3>
-  <ul>
-    <li>Phase I — Quiet launch, real holders</li>
-    <li>Phase II — Weak hands exit</li>
-    <li>Phase III — Organic growth</li>
-    <li>Phase IV — Arrival</li>
-  </ul>
-
-  <h3>⚠️ Anti-Scam Verification</h3>
-  <div class="token">
-    OFFICIAL TOKEN ADDRESS:<br>
-    92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump
-  </div>
-
-  <p>
-    Any other token claiming to be CARABAO is a scam.
-    No DMs. No private sales. No admin messages.
-  </p>
-
-  <h3>Disclaimer</h3>
-  <p>
-    CARABAO is a meme token. Nothing here is financial advice.
-    Participation is voluntary and at your own risk.
-  </p>
-</div>
-
-  <div class="card">
-    <h2>Token Address</h2>
-    <div class="token">
-      92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump
-    </div>
-  </div>
 <div class="card">
-  <h2>🎧 CARABAO Anthem</h2>
-
-  <audio controls preload="metadata" style="width:100%">
-    <source src="./carabao-music.mp3" type="audio/mpeg">
-  </audio>
+<h2>Token Address</h2>
+<div class="token">
+92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump
 </div>
-  <div class="card" id="chart">
-    <h2>Live Chart</h2>
-    <div class="chart">
-      <iframe
-        src="https://dexscreener.com/solana/92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump?embed=1&theme=dark"
-        width="100%"
-        height="100%"
-        frameborder="0">
-      </iframe>
-    </div>
-  </div>
+</div>
 
-  <div class="card">
-    <h2>Roadmap — Slow Burn</h2>
-    <div class="roadmap">
-      <div class="phase">Phase I — Quiet launch, real holders</div>
-      <div class="phase">Phase II — Weak hands exit</div>
-      <div class="phase">Phase III — Price moves without noise</div>
-      <div class="phase">Phase IV — Arrival</div>
-    </div>
-  </div>
+<div class="card">
+<h2>🎧 CARABAO Anthem</h2>
+<audio controls preload="metadata" style="width:100%">
+<source src="carabao-music.mp3" type="audio/mpeg">
+</audio>
+</div>
+
+<div class="card" id="chart">
+<h2>Live Chart</h2>
+<div class="chart">
+<iframe
+src="https://dexscreener.com/solana/92kiHVStMPbuMas3BXRoqUgJN6HCUzRUQ8u2gHmSpump?embed=1&theme=dark"
+width="100%"
+height="100%"
+frameborder="0"></iframe>
+</div>
+</div>
 
 </div>
 
-<!-- STICKY -->
 <div class="sticky">
-  <a class="btn" href="https://pump.fun" target="_blank">Swap $CARABAO</a>
+<a class="btn" href="https://pump.fun" target="_blank">Swap $CARABAO</a>
 </div>
 
+<!-- ✅ SAFE BACKGROUND MUSIC SCRIPT -->
 <script>
-function toggleDegen() {
-  document.body.classList.toggle("degen");
+document.addEventListener("DOMContentLoaded",()=>{
+
+const music=document.getElementById("bgMusic");
+const btn=document.getElementById("musicBtn");
+
+music.volume=0.35;
+music.muted=true;
+
+// muted autoplay allowed
+music.play().catch(()=>{});
+
+// enable sound after first interaction
+const enableSound=()=>{
+music.muted=false;
+music.play().catch(()=>{});
+btn.innerText="🔊 Sound ON";
+window.removeEventListener("click",enableSound);
+window.removeEventListener("touchstart",enableSound);
+};
+
+window.addEventListener("click",enableSound,{once:true});
+window.addEventListener("touchstart",enableSound,{once:true});
+
+// manual toggle button
+btn.addEventListener("click",()=>{
+if(music.muted){
+music.muted=false;
+music.play();
+btn.innerText="🔊 Sound ON";
+}else{
+music.muted=true;
+btn.innerText="🔇 Muted";
 }
+});
+
+});
 </script>
 
 </body>
 </html>
-
