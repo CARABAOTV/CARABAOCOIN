@@ -150,22 +150,21 @@ body.degen .hero {
 </head>
 
 <body>
-  <!-- CARABAO Background Music -->
-<audio id="bgMusic" loop preload="auto">
-  <source src="./carabao-music.mp3" type="audio/mpeg">
+  <audio id="bgMusic" loop preload="auto">
+  <source src="carabao-music.mp3" type="audio/mpeg">
 </audio>
 
 <script>
 const music = document.getElementById("bgMusic");
 
-/* Try autoplay (muted — browser allows) */
+music.volume = 0.35;
 music.muted = true;
+
 music.play().catch(()=>{});
 
-/* Unmute after first interaction (safe autoplay rule) */
 function enableSound(){
   music.muted = false;
-  music.play();
+  music.play().catch(()=>{});
   document.removeEventListener("click", enableSound);
   document.removeEventListener("touchstart", enableSound);
 }
